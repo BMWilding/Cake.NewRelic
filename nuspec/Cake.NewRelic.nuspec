@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>Cake.NewRelic</id>
+    <version>0.0.1</version>
+    <authors>Bryson Wilding</authors>
+    <owners>Bryson Wilding</owners>
+    <projectUrl>https://github.com/BMWilding/Cake.NewRelic</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>NewRelic Deployment Tool for Cake</description>
+    <copyright>DWTFYW 2017</copyright>
+    <tags>Cake NewRelic</tags>
+    <dependencies>
+    </dependencies>
+  </metadata>
+</package>
