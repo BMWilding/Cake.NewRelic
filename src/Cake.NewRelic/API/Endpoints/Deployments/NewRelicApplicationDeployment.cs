@@ -5,12 +5,9 @@ namespace Cake.NewRelic.API.Endpoints.Deployments
 {
     public class NewRelicApplicationDeployment
     {
-        public uint Id { get; set; }
-        public string Revision { get; set; }
-        public string ChangeLog { get; set; }
-        public string Description { get; set; }
-        public string User { get; set; }
-        public DateTime TimeStamp { get; set; }
-        public IEnumerable<int> Links { get; set; }
+        public string revision { get; set; }
+        public string changelog { get; set; }
+        public string description { get; set; }
+        public string user { get; set; }
     }
 }

@@ -1,4 +1,5 @@
-﻿using RestSharp;
+﻿using System.Dynamic;
+using RestSharp;
 
 namespace Cake.NewRelic.API.Endpoints.Deployments
 {
@@ -17,10 +18,12 @@ namespace Cake.NewRelic.API.Endpoints.Deployments
 
         public override IRestRequest BuildRestRequest()
         {
+            dynamic reqObject = new ExpandoObject();
+            reqObject.deployment = Deployment;
             var request = base.BuildRestRequest();
             request.AddHeader("Content-Type", "application/json");
             request.RequestFormat = DataFormat.Json;
-            request.AddBody(Deployment);
+            request.AddBody(reqObject);
             return request;
         }
     }

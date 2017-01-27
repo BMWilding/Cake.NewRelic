@@ -62,6 +62,7 @@
     <Compile Include="API\NewRelicRequest.cs" />
     <Compile Include="NewRelicAliases.cs" />
     <Compile Include="NewRelicClient.cs" />
+    <Compile Include="NewRelicClientSettings.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
