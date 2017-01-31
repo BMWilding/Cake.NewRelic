@@ -8,8 +8,8 @@ namespace Cake.NewRelic.API.Endpoints.Applications
     {
         public override string Endpoint => "/v2/applications.json";
         public override Method Method => Method.GET;
-        public IEnumerable<Tuple<Filter,string>> Filters { get; set; }
-        public IEnumerable<Tuple<Sort,string>> SortParams { get; set; }
+        public IEnumerable<Tuple<Filter, string>> Filters { get; set; }
+        public IEnumerable<Tuple<Sort, string>> SortParams { get; set; }
     }
 
     internal class ListApplicationsResponse : INewRelicResponse

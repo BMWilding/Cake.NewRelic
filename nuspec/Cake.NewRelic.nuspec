@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>Cake.NewRelic</id>
-    <version>0.0.1</version>
+    <version>0.0.3</version>
     <authors>Bryson Wilding</authors>
     <owners>Bryson Wilding</owners>
     <projectUrl>https://github.com/BMWilding/Cake.NewRelic</projectUrl>
@@ -11,6 +11,11 @@
     <copyright>DWTFYW 2017</copyright>
     <tags>Cake NewRelic</tags>
     <dependencies>
+      <dependency id="Cake.Core" version="0.17.0" />
+      <dependency id="RestSharp" version="105.2.3" /> 
     </dependencies>
-  </metadata>
+  </metadata>    
+  <files>
+    <file src="..\src\Cake.NewRelic\bin\Release\Cake.NewRelic.*" target="lib\net45" />
+  </files>
 </package>

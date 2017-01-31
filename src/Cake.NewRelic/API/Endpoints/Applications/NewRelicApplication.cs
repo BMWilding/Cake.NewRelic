@@ -41,7 +41,7 @@ namespace Cake.NewRelic.API.Endpoints.Applications
     {
         public float AppApdexThreshold { get; set; }
         public float EndUserApdexThreshold { get; set; }
-        public bool EnableRealUserMonitoring { get; set;}
+        public bool EnableRealUserMonitoring { get; set; }
         public bool UserServerSideConfig { get; set; }
     }
 

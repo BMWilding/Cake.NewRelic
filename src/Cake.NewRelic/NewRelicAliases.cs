@@ -8,7 +8,7 @@ namespace Cake.NewRelic
     public static class NewRelicAliases
     {
         [CakeMethodAlias]
-        public static void NewRelicDeploy(this ICakeContext context, string apiKey, int appId, NewRelicApplicationDeployment deployment)
+        public static void NewRelicDeploy(this ICakeContext context, string apiKey, int appId, AppDeployment deployment)
         {
             var client = new NewRelicClient(context, apiKey, appId);
             client.CreateDeployment(deployment);
