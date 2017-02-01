@@ -32,11 +32,22 @@ namespace Cake.NewRelic
             var req = request.BuildRestRequest();
             var response = _client.Execute(req);
 
-            if (response.StatusCode == HttpStatusCode.OK) return;
+            switch (response.StatusCode)
+            {
+                case HttpStatusCode.OK:
+                    _context.Log.Write(Verbosity.Normal, LogLevel.Information, "Deployment Created");
+                    return;
+                case HttpStatusCode.Created:
+                    _context.Log.Write(Verbosity.Normal, LogLevel.Information, "Deployment Created");
+                    return;
+                default:
+                    _context.Log.Write(Verbosity.Normal, LogLevel.Warning,
+                        "Could not create New Relic deployment. Response Code: {0}", response.StatusCode);
+                    _context.Log.Write(Verbosity.Diagnostic, LogLevel.Warning, "Error: {0}", response.Content);
+                    return;
+            }
 
-            _context.Log.Write(Verbosity.Normal, LogLevel.Information,
-                "Could not create New Relic deployment. Response Code: {0}", response.StatusCode);
-            _context.Log.Write(Verbosity.Diagnostic, LogLevel.Information, "Error: {0}", response.Content);
+
         }
     }
 }

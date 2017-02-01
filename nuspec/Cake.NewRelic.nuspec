@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>Cake.NewRelic</id>
-    <version>0.0.3</version>
+    <version>$version$</version>
     <authors>Bryson Wilding</authors>
     <owners>Bryson Wilding</owners>
     <projectUrl>https://github.com/BMWilding/Cake.NewRelic</projectUrl>

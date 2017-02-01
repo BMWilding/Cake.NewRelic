@@ -9,7 +9,7 @@ namespace Cake.NewRelic.API.Endpoints.Deployments
     public class AppDeployment
     {
         public string revision { get; set; }
-        public string changeLog { get; set; }
+        public string changelog { get; set; }
         public string description { get; set; }
         public string user { get; set; }
     }
