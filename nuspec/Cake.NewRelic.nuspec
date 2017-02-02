@@ -12,10 +12,11 @@
     <tags>Cake NewRelic</tags>
     <dependencies>
       <dependency id="Cake.Core" version="0.17.0" />
-      <dependency id="RestSharp" version="105.2.3" /> 
+      <dependency id="Restsharp" version="105.2.3" />
     </dependencies>
   </metadata>    
   <files>
     <file src="..\src\Cake.NewRelic\bin\Release\Cake.NewRelic.*" target="lib\net45" />
+    <file src="..\src\Cake.NewRelic\bin\Release\Restsharp*" target="lib\net45" />
   </files>
 </package>

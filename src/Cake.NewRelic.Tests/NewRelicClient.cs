@@ -1,4 +1,7 @@
-﻿using System.Net;
+﻿using System;
+using System.Net;
+using System.Runtime.InteropServices.WindowsRuntime;
+using System.Threading.Tasks;
 using Cake.Core;
 using Cake.Core.Diagnostics;
 using Cake.NewRelic.API.Endpoints.Deployments;
@@ -29,11 +32,13 @@ namespace Cake.NewRelic.Tests
 
         [Theory]
         [AutoData]
-        public void CreateDeploymentTest(Mock<RestClient> client)
+        public async void CreateDeploymentTest(Mock<RestClient> client)
         {
-            client.Setup(x => x.Execute(It.IsAny<RestRequest>()))
-                .Returns(_fixture.Build<RestResponse>().With(x => x.StatusCode, HttpStatusCode.OK)
-                    .Create());
+            IRestResponse response = _fixture.Build<RestResponse>().With(x => x.StatusCode, HttpStatusCode.OK).Create();
+            var tResponse = Task.FromResult(response);
+            client.Setup(x => x.ExecuteTaskAsync(It.IsAny<RestRequest>()))
+                .Returns(tResponse);
+            client.Setup(x => x.BaseUrl).Returns(new Uri("http://fake.domain"));
 
             var sut = new NewRelicClient(
                 _fixture.Create<ICakeContext>(),
@@ -41,30 +46,25 @@ namespace Cake.NewRelic.Tests
                 _fixture.Create<int>(),
                 client.Object);
 
-            sut.CreateDeployment(_fixture.Create<AppDeployment>());
-            client.Verify(x => x.Execute(It.IsAny<RestRequest>()), Times.Once());
+            await sut.CreateDeployment(_fixture.Create<AppDeployment>());
+            client.Verify(x => x.ExecuteTaskAsync(It.IsAny<RestRequest>()), Times.Once());
         }
 
         [Theory]
         [AutoData]
-        public void CreateDeploymentFailureTest(Mock<RestClient> client)
+        public async void CreateDeploymentFailureTest(Mock<RestClient> client)
         {
-            var log = _fixture.Create<Mock<ICakeLog>>();
-            _fixture.Inject(log.Object);
-
-            var fakeContext = _fixture.Create<Mock<ICakeContext>>();
-            client.Setup(x => x.Execute(It.IsAny<RestRequest>()))
-                .Returns(_fixture.Build<RestResponse>().With(x => x.StatusCode, HttpStatusCode.BadRequest)
-                    .Create());
-            _fixture.Inject(fakeContext);
+            IRestResponse response = _fixture.Build<RestResponse>().With(x => x.StatusCode, HttpStatusCode.BadRequest).Create();
+            var tResponse = Task.FromResult(response);
+            client.Setup(x => x.ExecuteTaskAsync(It.IsAny<RestRequest>())).Returns(tResponse);
+            _fixture.Inject<IRestClient>(client.Object);
 
             var sut = _fixture.Create<NewRelicClient>();
-            sut.CreateDeployment(_fixture.Create<AppDeployment>());
+            var result = await sut.CreateDeployment(_fixture.Create<AppDeployment>());
 
-            client.Verify(x => x.Execute(It.IsAny<RestRequest>()), Times.Never());
-            log.Verify(
-                x => x.Write(It.IsAny<Verbosity>(), It.IsAny<LogLevel>(), It.IsAny<string>(), It.IsAny<object>()),
-                Times.AtLeastOnce());
+            client.Verify(x => x.ExecuteTaskAsync(It.IsAny<RestRequest>()), Times.Once());
+            Assert.False(result.Successful);
+            Assert.Equal((int)HttpStatusCode.BadRequest, result.Error.StatusCode);
         }
     }
 }
