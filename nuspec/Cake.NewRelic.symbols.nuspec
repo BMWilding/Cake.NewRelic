@@ -16,7 +16,7 @@
     </dependencies>
   </metadata>    
   <files>
-    <file src="..\src\Cake.NewRelic\bin\Release\Cake.NewRelic.dll" target="lib\net45" />
+    <file src="..\src\Cake.NewRelic\bin\Release\Cake.NewRelic.*" target="lib\net45" />
     <file src="..\src\Cake.NewRelic\bin\Release\Restsharp.*" target="lib\net45" />
   </files>
 </package>
